@@ -8,7 +8,7 @@ import { Button, Callout, TextField } from "@radix-ui/themes";
 import axios from "axios";
 import "easymde/dist/easymde.min.css";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import SimpleMDE from "react-simplemde-editor";
 import { z } from "zod";
@@ -25,8 +25,7 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
   } = useForm<IssueFormData>({
     resolver: zodResolver(issueSchema),
   });
-
-  const [error, setErrror] = useState("");
+  const [error, setError] = useState("");
   const [isSubmitting, setSubmitting] = useState(false);
 
   const onSubmit = handleSubmit(async (data) => {
@@ -39,7 +38,7 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
       router.refresh();
     } catch (error) {
       setSubmitting(false);
-      setErrror("An unexpected error occurred");
+      setError("An unexpected error occurred.");
     }
   });
 
@@ -72,8 +71,8 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
         <ErrorMessage>{errors.description?.message}</ErrorMessage>
 
         <Button disabled={isSubmitting}>
-          {issue ? "Update Issue" : "Submit New Issue"}
-          {isSubmitting && <Spinner />}{" "}
+          {issue ? "Update Issue" : "Submit New Issue"}{" "}
+          {isSubmitting && <Spinner />}
         </Button>
       </form>
     </div>
